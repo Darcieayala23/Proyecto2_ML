@@ -118,7 +118,7 @@ plt.plot(epocas, loss_B_train, label='Dropout -> BatchNorm', color='red', linest
 plt.title("Pérdida en Entrenamiento (Loss)")
 plt.xlabel("Épocas")
 plt.ylabel("Loss")
-plt.legend(fontsize=11)
+plt.legend(fontsize=14)
 plt.grid(True, linestyle='--')
 
 plt.subplot(1, 2, 2)
@@ -127,7 +127,7 @@ plt.plot(epocas, loss_B_val, label='Dropout -> BatchNorm', color='red', linestyl
 plt.title("Pérdida en Validación (Val Loss)")
 plt.xlabel("Épocas")
 plt.ylabel("Loss")
-plt.legend(fontsize=11)
+plt.legend(fontsize=14)
 plt.grid(True, linestyle='--')
 
 plt.tight_layout()
