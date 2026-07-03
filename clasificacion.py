@@ -5,6 +5,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 from xgboost import XGBClassifier
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
 
 SEED = 42
 # --- Escenario A: 64 variables originales ---
@@ -95,3 +98,34 @@ evaluar_modelo(xgb_model, X_train_pca, X_test_pca, y_train_pca, y_test_pca, "XGB
 print("\n=== CUADRO COMPARATIVO FINAL (SECCION 3.5) ===")
 df_resultados = pd.DataFrame(resultados)
 print(df_resultados.to_string(index=False))
+
+plt.rcParams.update({'font.size': 14, 'axes.labelsize': 16, 'axes.titlesize': 16})
+especies = ["Especie 10", "Especie 12", "Especie 17", "Especie 18", "Especie 23"]
+
+# 1. Matriz de Confusión para XGBoost - Espacio Original (64D)
+xgb_model.fit(X_train_orig, y_train_orig)
+y_pred_o = xgb_model.predict(X_test_orig)
+cm_o = confusion_matrix(y_test_orig, y_pred_o)
+
+plt.figure(figsize=(7, 6))
+sns.heatmap(cm_o, annot=True, fmt='d', cmap='Blues', xticklabels=especies, yticklabels=especies, cbar=False)
+plt.title("XGBoost - Espacio Original (64D)")
+plt.ylabel("Clase Real")
+plt.xlabel("Clase Predicha")
+plt.tight_layout()
+plt.savefig("matriz_original.png", dpi=300)
+plt.close()
+
+# 2. Matriz de Confusión para XGBoost - Espacio Reducido (11D PCA)
+xgb_model.fit(X_train_pca, y_train_pca)
+y_pred_p = xgb_model.predict(X_test_pca)
+cm_p = confusion_matrix(y_test_pca, y_pred_p)
+
+plt.figure(figsize=(7, 6))
+sns.heatmap(cm_p, annot=True, fmt='d', cmap='Greens', xticklabels=especies, yticklabels=especies, cbar=False)
+plt.title("XGBoost - Espacio Reducido (11D PCA)")
+plt.ylabel("Clase Real")
+plt.xlabel("Clase Predicha")
+plt.tight_layout()
+plt.savefig("matriz_reducida.png", dpi=300)
+plt.close()
