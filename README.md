@@ -21,11 +21,13 @@ Se entrenaron y compararon un MLP y un modelo de ensamble (XGBoost) para clasifi
 6. clasificacion.py
 
 PARTE 4: Desiciones de ingeniería
+
 Se diseñó una política de moderación en tres zonas (confianza, incertidumbre, rechazo) basada en la probabilidad máxima estimada por el clasificador, priorizando la calibración de las probabilidades sobre la exactitud global. 
 7. umbrales operativos.py
 
 
 PARTE 5: Streamlit
+
 Se desarrolló una interfaz web interactiva (Streamlit) que simula la inferencia del modelo optimizado (XGBoost sobre 11D-PCA) sobre escenarios precargados de la partición de prueba. La app aplica en tiempo real la política de moderación por umbrales probabilísticos, clasificando cada predicción en zona de confianza, incertidumbre o rechazo. 
 
 
